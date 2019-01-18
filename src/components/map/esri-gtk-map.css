@@ -1,0 +1,68 @@
+body {
+
+}
+h1, h2, p {
+  /*font-family: sans-serif;
+  text-align: center;*/
+}
+.leaflet-container {
+  height: 500px;
+  width: 100%;
+  margin: 0 auto;
+
+}
+path.leaflet-interactive{
+  stroke-width:0.7;
+  fill-opacity:0.6;
+}
+.leaflet-control-layers-overlays,
+.leaflet-control-layers-base{
+    text-align:left;
+    padding-left:5px;
+}
+/*
+.leaflet-control-layers-toggle:after{
+    content:"your text";
+    color:#000 ;
+}
+.leaflet-control-layers-toggle{
+    width:auto;
+    background-position:3px 50% ;
+    padding:3px;
+    padding-left:36px;
+    text-decoration:none;
+    line-height:36px;
+
+}*/
+.layers-control-label{
+  padding:2px;
+
+  width:80%;
+  display:inline-block;
+  border: 1px solid #ffff;
+}
+
+.steelblue{
+  background-color: steelblue;
+}
+.lightsteelblue{
+  background-color:lightsteelblue;
+}
+.darkblue{
+  background-color: darkblue;
+}
+.darkcyan{
+  background-color: darkcyan;
+}
+.burlywood{
+  background-color: burlywood;
+}
+.sandybrown{
+  background-color: sandybrown;
+}
+.forestgreen{
+  background-color: forestgreen;
+}
+.green{
+  background-color: green;
+}
