@@ -15,6 +15,7 @@ require('leaflet/dist/leaflet.css');
 class App extends React.Component {
 
   async componentDidMount() {
+    console.log('Hello')
     await this.props.initialiseHotspots()
     if (this.props.hotspots) {
       console.log(this.props.hotspots)

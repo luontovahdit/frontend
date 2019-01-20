@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react'
 import { Map, TileLayer, EsriFeatureLayer,LayersControl, Popup } from './src'
+import { connect } from 'react-redux'
+import { showHotspotForm, showHotspot } from '../../reducers/viewReducer'
+import { setCurrentHotspot } from '../../reducers/hotspotReducer'
 
 type State = {
   lat: number,
@@ -10,15 +13,25 @@ type State = {
 }
 const { BaseLayer, Overlay } = LayersControl
 
-export default class EsriGtkMap extends Component<{}, State> {
+class EsriGtkMap extends Component<{}, State> {
   state = {
     lat: 68.7512,
     lng: 25.6189,
     zoom: 7,
   }
 
-  onClick = () => {
+  handleMapClick = (coordinates) => {
     //console.log('esri-feature-layer example this',this)
+    console.log('coordinates2: ', coordinates)
+    if (this.props.isUserLoggedIn) {
+      this.props.showHotspotForm(coordinates)
+    }
+  }
+
+  handleHotspotClick = (e) => {
+    console.log(e.layer.feature.properties.id)
+    this.props.setCurrentHotspot(e.layer.feature.properties.id)
+    this.props.showHotspot()
   }
 
   render() {
@@ -26,7 +39,9 @@ export default class EsriGtkMap extends Component<{}, State> {
       <Map
         center={[this.state.lat, this.state.lng]}
         zoom={this.state.zoom}
-        onClick={this.onClick}>
+        handleMapClick={this.handleMapClick}
+        handleHotspotClick={this.handleHotspotClick}
+        hotspots={this.props.hotspots}>
 
         <LayersControl position="topright">
           <LayersControl.BaseLayer name="Peruskartta" >
@@ -152,3 +167,18 @@ export default class EsriGtkMap extends Component<{}, State> {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    hotspots: state.map.hotspots,
+    isUserLoggedIn: state.view.isUserLoggedIn
+  }
+}
+
+const mapDispatchToProps = {
+  showHotspotForm,
+  showHotspot,
+  setCurrentHotspot
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EsriGtkMap)

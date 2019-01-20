@@ -6,13 +6,15 @@ import {
   type CRS,
   type Renderer,
 } from 'leaflet'
+import { geoJSON, circleMarker, DomEvent } from 'leaflet'
 import { omit } from 'lodash'
 import React, { type Node } from 'react'
 
 import { LeafletProvider } from './context'
 import MapEvented from './MapEvented'
 import updateClassName from './utils/updateClassName'
-import type {
+import type
+ {
   LatLng,
   LatLngBounds,
   LeafletContext,
@@ -26,7 +28,7 @@ const OTHER_PROPS = [
   'id',
   'style',
   'useFlyTo',
-  'whenReady',
+  'whenReady'
 ]
 
 const normalizeCenter = (pos: LatLng): [number, number] => {
@@ -109,6 +111,7 @@ export default class Map extends MapEvented<LeafletElement, Props> {
 
   constructor(props: Props) {
     super(props)
+    console.log('props:', props)
     this.className = props.className
   }
 
@@ -285,11 +288,42 @@ export default class Map extends MapEvented<LeafletElement, Props> {
       map: this.leafletElement,
     }
 
+    this.contextValue.map.on('click', function(ev) {
+      props.handleMapClick([ ev.latlng.lng, ev.latlng.lat ])
+      console.log('props2', props)
+      //alert(ev.latlng); // ev is an event object (MouseEvent in this case)
+    })
+
+    var geojsonMarkerOptions = {
+      radius: 8,
+      fillColor: 'darkorange',
+      color: 'black',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    }
+
+    this.hotspotLayer = geoJSON([], {
+      pointToLayer: function (feature, latlng) {
+        return circleMarker(latlng, geojsonMarkerOptions)
+      }}).addTo(this.contextValue.map)
+
+    this.hotspotLayer.addData(props.hotspots)
+    this.hotspotLayer.bringToFront()
+
+    this.hotspotLayer.on('click', function(ev) {
+      DomEvent.stopPropagation(ev)
+      props.handleHotspotClick(ev)
+    })
+
     super.componentDidMount()
     this.forceUpdate() // Re-render now that leafletElement is created
   }
 
   componentDidUpdate(prevProps: Props) {
+    console.log('updated?: ',this.props.hotspots)
+    this.hotspotLayer.clearLayers()
+    this.hotspotLayer.addData(this.props.hotspots)
     this.updateLeafletElement(prevProps, this.props)
   }
 

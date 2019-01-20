@@ -64,7 +64,7 @@ export const initialiseHotspots = () => {
   return async dispatch => {
     try {
       const hotspots = await hotspotService.getAll()
-      console.log(hotspots)
+      console.log('Fetched hotspots: ',hotspots)
       dispatch({
         type:'GET_HOTSPOTS_SUCCESS',
         hotspots
