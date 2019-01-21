@@ -63,6 +63,9 @@ const viewReducer = (state = initialState, action) => {
 
 export const showHotspotForm = (newCoordinates) => {
   return dispatch => {
+    if (newCoordinates.latlng) {
+      newCoordinates = [newCoordinates.latlng.lng, newCoordinates.latlng.lat]
+    }
     dispatch({
       type: 'SHOW_HOTSPOT_FORM',
       newCoordinates

@@ -25,6 +25,8 @@ class HotspotForm extends Component {
         }
       }
 
+      console.log('coordinates: ', this.props.coordinates)
+      console.log('new hs?: ', hotspotObject)
       event.target.title.value = ''
       event.target.description.value = ''
 
