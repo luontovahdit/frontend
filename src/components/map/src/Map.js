@@ -6,7 +6,8 @@ import {
   type CRS,
   type Renderer,
 } from 'leaflet'
-import { geoJSON, circleMarker, DomEvent } from 'leaflet'
+import { geoJSON, circleMarker, DomEvent, polygon } from 'leaflet'
+import { L } from 'leaflet-control-geocoder'
 import { omit } from 'lodash'
 import React, { type Node } from 'react'
 
@@ -287,6 +288,21 @@ export default class Map extends MapEvented<LeafletElement, Props> {
       layerContainer: this.leafletElement,
       map: this.leafletElement,
     }
+
+    const geocoderOptions = {
+      placeholder: 'Etsi...',
+      errorMessage: 'Ei kohteita.',
+      showResultIcons: true,
+      //defaultMarkGeocode: false,
+      position: 'topleft',
+      geocoder: new L.Control.Geocoder.Nominatim({
+        geocodingQueryParams: {
+          'accept-language': 'fi'
+        }
+      })
+    }
+    new L.Control.Geocoder(geocoderOptions)
+      .addTo(this.contextValue.map)
 
     this.contextValue.map.on('click', function(ev) {
       props.handleMapClick([ ev.latlng.lng, ev.latlng.lat ])
