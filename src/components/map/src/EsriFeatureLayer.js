@@ -16,7 +16,6 @@ import MapLayer from './MapLayer'
 //import { FeatureManager } from  'esri-leaflet'
 //import GeoJSON from './GeoJSON'
 //import { geoJson } from 'leaflet'
-//import * as fs from 'fs';
 
 type LeafletElement = featureLayer
 type Props = { url: string, color: string } & EsriFeatureLayerProps
@@ -39,7 +38,7 @@ class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
 
     var esriLayer = new featureLayer(featureLayerParams)
 
-    /* Testing a signle request to a gtk mapserver
+    /* Testing a single request to a gtk mapserver
     var serviceUrl = url
     console.log("url",serviceUrl)
     esriRequest("http://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/12", {}, function(error, response){
@@ -85,10 +84,9 @@ class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
           //console.log(key + " -> " + e.feature.properties[key]);
         }
       }
+      //devnote: we could change the template into semantic UI's modal
       return Util.template(popupTemplate, e.feature.properties)
-
     });
-
     return esriLayer
   }
 
