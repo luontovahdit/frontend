@@ -6,4 +6,18 @@ const create = async (comment) => {
   return response.data
 }
 
-export default { create }
+const upVote = async (id) => {
+  const response = await axios.post(`${baseUrl}/${id}/vote`,
+    { type: 'upVote' },
+    { withCredentials: true })
+  return response.data
+}
+
+const downVote = async (id) => {
+  const response = await axios.post(`${baseUrl}/${id}/vote`,
+    { type: 'downVote' },
+    { withCredentials: true })
+  return response.data
+}
+
+export default { create, upVote, downVote }

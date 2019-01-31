@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Modal, Form } from 'semantic-ui-react'
+import { Button, Modal, Form, Label, Segment } from 'semantic-ui-react'
 import { hideRegisterForm } from '../reducers/viewReducer'
 import { views } from '../constants'
 import loginService from '../services/loginService'
@@ -19,11 +19,26 @@ class RegisterForm extends Component {
       usernameError: false,
       passwordError: false,
       displaynameError: false,
-      emailError: false
+      emailError: false,
+      errorMessages: []
     }
   }
 
-  close = () => this.props.hideRegisterForm()
+  close = () => {
+    this.setState({
+      username: '',
+      password: '',
+      passwordConf: '',
+      displayname: '',
+      email: '',
+      usernameError: false,
+      passwordError: false,
+      displaynameError: false,
+      emailError: false,
+      errorMessages: []
+    })
+    this.props.hideRegisterForm()
+  }
 
   register = async (event) => {
     event.preventDefault()
@@ -36,17 +51,29 @@ class RegisterForm extends Component {
     })
 
     if (this.state.username.length < 6) {
-      await this.setState({ usernameError: true })
+      await this.setState({
+        usernameError: true,
+        errorMessages: this.state.errorMessages.concat('Käyttäjätunnuksen täytyy olla vähintään 6 merkkiä pitkä.')
+      })
     }
     if (this.state.password.length < 8 ||
         this.state.password !== this.state.passwordConf) {
-      await this.setState({ passwordError: true })
+      await this.setState({
+        passwordError: true,
+        errorMessages: this.state.errorMessages.concat('Salasanan täytyy olla vähintään 8 merkkiä pitkä.')
+      })
     }
     if (this.state.displayname.length < 6) {
-      await this.setState({ displaynameError: true })
+      await this.setState({
+        displaynameError: true,
+        errorMessages: this.state.errorMessages.concat('Käyttäjänimen täytyy olla vähintään 6 merkkiä pitkä.')
+      })
     }
     if (this.state.email.length < 6) {
-      await this.setState({ emailError: true })
+      await this.setState({
+        emailError: true,
+        errorMessages: this.state.errorMessages.concat('Anna toimiva sähköpostiosoite.')
+      })
     }
 
     if (this.state.usernameError ||
@@ -71,6 +98,7 @@ class RegisterForm extends Component {
       } catch (error) {
         console.log('Virhe rekisteröinnissä...')
         console.log(error)
+        this.setState({ errorMessages: [error] })
       }
     }
   }
@@ -80,6 +108,8 @@ class RegisterForm extends Component {
   }
 
   render() {
+    const showWhenError = { display: this.state.errorMessages.length > 0 ? '' : 'none' }
+
     console.log('open ' + this.props.open)
     return (
       <div>
@@ -91,16 +121,32 @@ class RegisterForm extends Component {
         >
           <Modal.Header>Rekisteröidy käyttäjäksi</Modal.Header>
           <Modal.Content>
+            <Segment style={ showWhenError } color='red' inverted secondary>
+              Huomioithan seuraavat:
+              <ul>
+                { this.state.errorMessages.map(error => {
+                  return (<li key={error}>{error}</li>)
+                })
+                }
+              </ul>
+            </Segment>
             <Form onSubmit={ this.register }>
-              <div>
+              <Form.Field>
                 Käyttäjätunnus:
                 <Form.Input
                   type="text"
                   name="username"
                   error={ this.state.usernameError }
                   onChange={ this.handleChange }
+                  attached='top'
                 />
-              </div>
+                <Label
+                  style={ showWhenError }
+                  basic
+                  pointing='left'
+                  attached='bottom'>Hello</Label>
+                
+              </Form.Field>
               <div>
                 Salasana:
                 <Form.Input

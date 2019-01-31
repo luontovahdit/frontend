@@ -21,4 +21,18 @@ const create = async (hotspot) => {
   return response.data
 }
 
-export default { getAll, getHotspotsByCoordinates, getHotspot, create }
+const upVote = async (id) => {
+  const response = await axios.post(`${baseUrl}/${id}/vote`,
+    { type: 'upVote' },
+    { withCredentials: true })
+  return response.data
+}
+
+const downVote = async (id) => {
+  const response = await axios.post(`${baseUrl}/${id}/vote`,
+    { type: 'downVote' },
+    { withCredentials: true })
+  return response.data
+}
+
+export default { getAll, getHotspotsByCoordinates, getHotspot, create, upVote, downVote }

@@ -39,7 +39,7 @@ const hotspotReducer = (state = initialState, action) => {
         error: action.error
       }
     case 'ADD_COMMENT_SUCCESS':
-      const hotspot = {...state.hotspots.find(hs => hs.id === action.comment.inHotspot.id)}
+      let hotspot = {...state.hotspots.find(hs => hs.id === action.comment.inHotspot.id)}
       hotspot.comments = hotspot.comments.concat(action.comment)
       return {
         ...state,
@@ -54,6 +54,33 @@ const hotspotReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error
+      }
+    case 'VOTE_HOTSPOT_SUCCESS':
+      return {
+        ...state,
+        hotspots: state.hotspots.map(hs =>
+          hs.id === action.hotspot.id
+          ? action.hotspot
+          : hs),
+        currentHotspot: action.hotspot
+      }
+    case 'VOTE_HOTSPOT_FAIL':
+      return {
+        ...state,
+        error: action.error
+      }
+    case 'VOTE_COMMENT_SUCCESS':
+      hotspot = {...state.hotspots.find(hs => hs.id === action.comment.inHotspot.id)}
+      let commentIndex = hotspot.comments.findIndex((c) => c.id === action.comment.id)
+      hotspot.comments[commentIndex] = action.comment
+      return {
+        ...state,
+        hotspots: state.hotspots.map(hs =>
+          hs.id === hotspot.id
+          ? hotspot
+          : hs),
+        currentHotspot: hotspot,
+        error: null
       }
     default:
       return state
@@ -116,6 +143,75 @@ export const addComment = (comment) => {
       dispatch({
         type: 'ADD_COMMENT_FAIL',
         error: 'Kommentia ei voitu lisätä! ' + error
+      })
+    }
+  }
+}
+
+export const upVoteHotspot = (id) => {
+  console.log('upvote')
+  return async dispatch => {
+    try {
+      const votedHotspot = await hotspotService.upVote(id)
+      dispatch({
+        type: 'VOTE_HOTSPOT_SUCCESS',
+        hotspot: votedHotspot
+      })
+    } catch (error) {
+      dispatch({
+        type: 'VOTE_HOTSPOT_FAIL',
+        error
+      })
+    }
+  }
+}
+
+export const downVoteHotspot = (id) => {
+  return async dispatch => {
+    try {
+      const votedHotspot = await hotspotService.downVote(id)
+      dispatch({
+        type: 'VOTE_HOTSPOT_SUCCESS',
+        hotspot: votedHotspot
+      })
+    } catch (error) {
+      dispatch({
+        type: 'VOTE_HOTSPOT_FAIL',
+        error
+      })
+    }
+  }
+}
+
+export const upVoteComment = (id) => {
+  return async dispatch => {
+    try {
+      const votedComment = await commentService.upVote(id)
+      dispatch({
+        type: 'VOTE_COMMENT_SUCCESS',
+        comment: votedComment
+      })
+    } catch (error) {
+      dispatch({
+        type: 'VOTE_COMMENT_FAIL',
+        error
+      })
+    }
+  }
+}
+
+export const downVoteComment = (id) => {
+  return async dispatch => {
+    try {
+      const votedComment = await commentService.downVote(id)
+      dispatch({
+        type: 'VOTE_COMMENT_SUCCESS',
+        comment: votedComment
+      })
+    } catch (error) {
+      dispatch({
+        type: 'VOTE_COMMENT_FAIL',
+        error
       })
     }
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, Icon, Label, Divider, Segment } from 'semantic-ui-react'
 import { hideHotspot } from '../reducers/viewReducer'
+import { upVoteHotspot, downVoteHotspot } from '../reducers/hotspotReducer'
 import { views } from '../constants'
 import Comments from './Comments'
 import Togglable from './Togglable'
@@ -39,7 +40,12 @@ class Hotspot extends Component {
             <Modal.Header>{ hs.title }</Modal.Header>
             <Modal.Content>
               <Button as='div' labelPosition='right'>
-                <Button basic color='green'>
+                <Button
+                  basic
+                  color='green'
+                  type='button'
+                  onClick={ () => this.props.upVoteHotspot(hs.id) }
+                >
                   <Icon name='thumbs up' />
                 </Button>
                 <Label as='a' basic pointing='left'>
@@ -47,7 +53,12 @@ class Hotspot extends Component {
                 </Label>
               </Button>
               <Button as='div' labelPosition='right'>
-                <Button basic color='orange'>
+                <Button
+                  basic
+                  color='orange'
+                  type='button'
+                  onClick={ () => this.props.downVoteHotspot(hs.id) }
+                >
                   <Icon name='thumbs down' />
                 </Button>
                 <Label as='a' basic pointing='left'>
@@ -96,7 +107,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  hideHotspot
+  hideHotspot,
+  upVoteHotspot,
+  downVoteHotspot
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hotspot)
