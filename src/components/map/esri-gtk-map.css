@@ -13,7 +13,7 @@ h1, h2, p {
 }
 path.leaflet-interactive{
   stroke-width:0.7;
-  fill-opacity:0.6;
+  fill-opacity:0.8;
 }
 .leaflet-control-layers-overlays,
 .leaflet-control-layers-base{
@@ -37,7 +37,7 @@ path.leaflet-interactive{
 .layers-control-label{
   padding:2px;
 
-  width:80%;
+  width:90%;
   display:inline-block;
   border: 1px solid #ffff;
 }
@@ -60,9 +60,69 @@ path.leaflet-interactive{
 .sandybrown{
   background-color: sandybrown;
 }
-.forestgreen{
-  background-color: forestgreen;
+.aqua{
+  background-color: aqua;
 }
-.green{
-  background-color: green;
+.lightslategray{
+  background-color: lightslategray;
+}
+.blueviolet{
+  background-color: blueviolet;
+}
+.cadetblue{
+  background-color: cadetblue;
+}
+.mediumpurple{
+  background-color: mediumpurple;
+}
+.mediumturquoise{
+  background-color: mediumturquoise;
+}
+.mediumorchid{
+  background-color: mediumorchid;
+}
+.deeppink{
+  background-color: deeppink;
+}
+.lightpink{
+  background-color: lightpink;
+}
+.pink{
+  background-color: pink;
+}
+.violet{
+  background-color: violet;
+}
+.orange{
+  background-color: orange;
+}
+.darksalmon{
+  background-color: darksalmon;
+}
+.sienna{
+  background-color: sienna;
+}
+.tomato{
+  background-color: tomato;
+}
+.yellow{
+  background-color: yellow;
+}
+.gold{
+  background-color: yellow;
+}
+.navajowhite{
+  background-color: navajowhite;
+}
+.khaki{
+  background-color: khaki;
+}
+.brown{
+  background-color: brown;
+}
+.firebrick{
+  background-color: firebrick;
+}
+.lightsalmon{
+  background-color: lightsalmon;
 }

@@ -63,7 +63,7 @@
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
-    "esri-leaflet": "^2.2.3",
+    "esri-leaflet": "github:juisi/esri-leaflet#dev-build",
     "flow-bin": "^0.86.0",
     "flow-copy-source": "^2.0.2",
     "flow-typed": "^2.5.1",

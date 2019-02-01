@@ -12,32 +12,36 @@ import type { GridLayerProps } from './types'
 import { BasemapLayer } from 'esri-leaflet'
 import { featureLayer } from 'esri-leaflet'
 import MapLayer from './MapLayer'
+import { connect } from 'react-redux'
 //import { FeatureLayerService } from  'esri-leaflet'
-//import { FeatureManager } from  'esri-leaflet'
 //import GeoJSON from './GeoJSON'
 //import { geoJson } from 'leaflet'
 
 type LeafletElement = featureLayer
-type Props = { url: string, color: string } & EsriFeatureLayerProps
+type Props = { url: string, color: string} & EsriFeatureLayerProps
 
 class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
 
+  /* Parent MapLayer has the component lifecycle functions*/
+
+  //Runs for every gtk layer when loading the app
   createLeafletElement(props: Props): LeafletElement {
-    //console.log('createLeafletElement')
+
     const { url, color, ...params } = props
-    //console.log('params from options:')
-    //console.log(this.getOptions(params))
-    //console.log('endof params from options')
     let featureLayerParams = {
       "url" : url,
       style: function () {
         return { color: color, weight: 1 };
       },
-      "useCors" : true
+      "useCors" : true,
+      "cacheLayers" :true, // kun tämä on päällä, createNewLayer ajetaan
+      "simplifyFactor": 2
+      //"timeFilterMode" : 'client'
     }
 
     var esriLayer = new featureLayer(featureLayerParams)
-
+    //tekeekö featureLayer objekti kaikki kutsut jo taustalla?
+    //jos niin, tämän kutsun voisi siirtää järkevämpään paikkaan
     /* Testing a single request to a gtk mapserver
     var serviceUrl = url
     console.log("url",serviceUrl)
@@ -57,13 +61,23 @@ class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
       console.log('popupopen!',ev.layer.feature.properties)
       return
     })
+    //Runs only once when checking the layer checkbox ??
     esriLayer.on('loading', function(ev){
-      console.log('loading feature layer!',ev)
+      //console.log('loading feature layer!',ev)
       return
     })
+    //Runs only once when checking the layer checkbox ??
     esriLayer.on('load', function(ev){
       console.log('loaded all queried feature layers event:',ev)
       return
+    })
+    esriLayer.on('remove', function(ev){
+      console.log('remove event:',ev)
+      return
+    })
+    //rikkoutuu ennen kun tänne päästään
+    esriLayer.on('addfeature', function(ev){
+      console.log('removed feature back to map: ',ev)
     })
 
     esriLayer.metadata(function(error, metadata){
@@ -90,6 +104,8 @@ class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
     return esriLayer
   }
 
+  //Runs on app load (no interaction needed)
+  //Seems like not running on layer selection
   updateLeafletElement(fromProps: Props, toProps: Props) {
     super.updateLeafletElement(fromProps, toProps)
     const { url: prevUrl, opacity: _po, zIndex: _pz, ...prevParams } = fromProps
@@ -115,3 +131,4 @@ class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
 }
 
 export default withLeaflet(EsriFeatureLayer)
+//export default connect(EsriFeatureLayerProps)(EsriFeatureLayer)

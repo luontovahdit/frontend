@@ -15,14 +15,20 @@ require('leaflet/dist/leaflet.css');
 class App extends React.Component {
 
   async componentDidMount() {
-    console.log('Hello')
     await this.props.initialiseHotspots()
     if (this.props.hotspots) {
       console.log(this.props.hotspots)
       this.props.setHotspotsOnMap(this.props.hotspots)
     }
-  }
+    //TODO: finish or clear
+    //await this.props.initialiseGTKLayers()
+    //await this.prosp.initialiseBaseMapLayers()
+    /*if (this.props.selectedBasemapLayer) {
+      console.log('selectedBasemapLayer: '.this.props.selectedBasemapLayer)
+      this.props.setGTKLayersOnMap(this.props.gtklayers)
+    }*/
 
+  }
   render() {
      return (
       <div>

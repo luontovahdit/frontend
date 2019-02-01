@@ -41,8 +41,8 @@ class EsriGtkMap extends Component<{}, State> {
         zoom={this.state.zoom}
         handleMapClick={this.handleMapClick}
         handleHotspotClick={this.handleHotspotClick}
-        hotspots={this.props.hotspots}>
-
+        hotspots={this.props.hotspots}
+      >
         <LayersControl position="topright">
           <LayersControl.BaseLayer name="Peruskartta" >
             <TileLayer
@@ -59,7 +59,7 @@ class EsriGtkMap extends Component<{}, State> {
           name="<span class='layers-control-label lightsteelblue'>kaivospiirihakemukset</span>">
             <EsriFeatureLayer name="kaivospiirihakemukset"
               color="lightsteelblue"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/0?f=pjson"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/0"
             />
           </LayersControl.Overlay>
 
@@ -67,98 +67,98 @@ class EsriGtkMap extends Component<{}, State> {
             name="<span class='layers-control-label steelblue'>kaivospiirit</span>">
             <EsriFeatureLayer
               color="steelblue"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/1?f=pjson"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/1"
             />
           </LayersControl.Overlay>
 
           <LayersControl.Overlay
-            name="<span class='layers-control-label darkblue'>kaivospiirit karenssissa</span>">
+            name="<span class='layers-control-label aqua'>kaivospiirit karenssissa</span>">
             <EsriFeatureLayer name="kaivospiirit_karenssissa"
-              color="darkblue"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/2?f=pjson"
+              color="aqua"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/2"
             >
             </EsriFeatureLayer>
           </LayersControl.Overlay>
           <LayersControl.Overlay
-            name="<span class='layers-control-label burlywood'>kaivoslupahakemukset</span>">
+            name="<span class='layers-control-label darkcyan'>kaivoslupahakemukset</span>">
             <EsriFeatureLayer name="kaivoslupahakemukset"
-              color="burlywood"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/3?f=pjson"
+              color="darkcyan"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/3"
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay
-            name="<span class='layers-control-label sandybrown'>kaivosalueet voimassa</span>">
+            name="<span class='layers-control-label lightslategray'>kaivosalueet voimassa</span>">
             <EsriFeatureLayer name="kaivosalueet_voimassa"
-              color="sandybrown"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/4?f=pjson"
+              color="lightslategray"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/4"
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay
-            name="<span class='layers-control-label green'>valtaushakemukset</span>">
+            name="<span class='layers-control-label mediumpurple'>valtaushakemukset</span>">
             <EsriFeatureLayer name="valtaushakemukset"
-              color="green"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/5?f=pjson"
+              color="mediumpurple"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/5"
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay
-            name="<span class='layers-control-label forestgreen'>valtaukset</span>">
+            name="<span class='layers-control-label mediumorchid'>valtaukset</span>">
             <EsriFeatureLayer name="valtaukset"
-              color="forestgreen"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/6?f=pjson"
+              color="mediumorchid"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/6"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="valtaukset karenssissa" >
+          <LayersControl.Overlay name="<span class='layers-control-label deeppink'>valtaukset karenssissa</span>" >
             <EsriFeatureLayer name="valtaukset_karenssissa"
-              color="darkgreen"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/7?f=pjson"
+              color="deeppink"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/7"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="malminetsintalupahakemukset" color="lightpink">
+          <LayersControl.Overlay name="<span class='layers-control-label lightpink'>malminetsintalupahakemukset</span>" >
             <EsriFeatureLayer name="malminetsintalupahakemukset"
-              color="chocolate"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/8?f=pjson"
+              color="lightpink"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/8"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="malminetsintaalueet" color="lightcoral" >
+          <LayersControl.Overlay name="<span class='layers-control-label violet'>malminetsintaalueet</span>" >
             <EsriFeatureLayer name="malminetsintaalueet"
-              color="saddlebrown"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/9?f=pjson"
+              color="violet"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/9"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="malminetsintaluvat karenssissa" >
+          <LayersControl.Overlay name="<span class='layers-control-label sienna'>malminetsintaluvat karenssissa</span>" >
             <EsriFeatureLayer name="malminetsintaluvat_karenssissa"
               color="sienna"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/10?f=pjson"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/10"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="varausilmoitushakemukset" >
+          <LayersControl.Overlay name="<span class='layers-control-label lightsalmon'>varausilmoitushakemukset</span>" >
             <EsriFeatureLayer name="varausilmoitushakemukset"
-              color="darkviolet"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/11?f=pjson"
+              color="lightsalmon"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/11"
             ></EsriFeatureLayer>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="varausilmoitukset karenssissa" >
+          <LayersControl.Overlay name="<span class='layers-control-label tomato'>varausilmoitukset karenssissa</span>" >
             <EsriFeatureLayer name="varausilmoitukset_karenssissa"
-            color="deeppink"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/12?f=pjson"
+            color="tomato"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/12"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="varausilmoitukset" >
+          <LayersControl.Overlay name="<span class='layers-control-label firebrick'>varausilmoitukset</span>" >
             <EsriFeatureLayer name="varausilmoitukset"
               color="firebrick"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/13?f=pjson"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/13"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="kullanhuuhdontaluvat" >
+          <LayersControl.Overlay name="<span class='layers-control-label orange'>kullanhuuhdontaluvat</span>" >
             <EsriFeatureLayer name="kullanhuuhdontaluvat"
-              color="gold"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/14?f=pjson"
+              color="orange"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/14"
             />
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="kullanhuuhdontalupahakemukset" >
+          <LayersControl.Overlay name="<span class='layers-control-label yellow'>kullanhuuhdontalupahakemukset</span>" >
             <EsriFeatureLayer name="kullanhuuhdontalupahakemukset"
-            color="darkgoldenrod"
-              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/15?f=pjson"
+            color="yellow"
+              url="https://gtkdata.gtk.fi/arcgis/rest/services/Tukes/TukesWMS/MapServer/15"
             />
           </LayersControl.Overlay>
         </LayersControl>

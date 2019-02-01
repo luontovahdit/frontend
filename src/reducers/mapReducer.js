@@ -1,4 +1,6 @@
 const initialState = {
+  selectedGTKLayers : [],
+  selectedBasemapLayer : [],
   hotspots:  [
     {
       "type": "Feature",
@@ -29,16 +31,33 @@ const mapReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_HOTSPOTS':
       return {
-        hotspots: action.hotspots
+         ...state, hotspots: action.hotspots
       }
     case 'ADD_HOTSPOT':
       return {
-        hotspots: state.hotspots.concat(action.hotspot)
+       ...state, hotspots: state.hotspots.concat(action.hotspot)
+      }
+    case 'SELECT_BASEMAP_LAYER':
+      return {
+          ...state,selectedBasemapLayer: action.basemapLayer
+      }
+    case 'SELECT_GTK_LAYER':
+      return {
+         ...state, selectedGTKLayers: state.selectedGTKLayers.concat(action.GTKLayer)
+      }
+    case 'DESELECT_GTK_LAYER':
+      return {
+         ...state, selectedGTKLayers:state.selectedGTKLayers.slice(action.GTKLayer)
+      }
+      case 'SELECT_GTK_FEATURE':
+        return {
+           ...state, selectedGTKFeature: action.GTKFeature 
       }
     default:
       return state
   }
 }
+
 
 export const setHotspotsOnMap = (hotspots) => {
   return dispatch => {
@@ -62,6 +81,30 @@ export const setHotspotsOnMap = (hotspots) => {
     })
   }
 }
+//TODO: finish if this operation is necessary
+/*export const setGTKLayersOnMap = (gtklayers) => {
+  return dispatch => {
+    const gtkFeatures = gtklayers.map(hs => {
+      //TODO: tarvisiko tähän kirjoittaa auki featureLayer() class constructorin param optionsit?
+      return {
+        'type': 'Feature',
+        'properties': {
+          'id': hs.id,
+          'icon': 'star'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': hs.location.coordinates
+        }
+      }
+    })
+    console.log(gtkFeatures)
+    dispatch({
+      type: 'SET_HOTSPOTS',
+      hotspots: gtkFeatures
+    })
+  }
+}*/
 
 export const addHotspot = (hotspot) => {
   return dispatch => {

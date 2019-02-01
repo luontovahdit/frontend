@@ -76,6 +76,7 @@ export type GridLayerOptions = {
 //http://esri.github.io/esri-leaflet/api-reference/layers/feature-layer.html
 export type FeatureLayerOptions = {
     url :string,
+    timeFilterMode : string,
     //pointToLayer :optional function
     //style : optional function
      onEachFeature : onEachFeature,//function from esri-leaflet FeatureLayer. TODO: mitenhän sen sais osoitettua?
@@ -85,6 +86,7 @@ export type FeatureLayerOptions = {
      cacheLayers : boolean,
      fields: Array,
      from: number,
+     useCors: boolean,
      //Popupin määrittelyä tänne?
     //TODO: mahdollisesti jotain samoja optionseja kuin gridLayer:llä
     //TODO: saako featurelayer oletetulta parentiltaan MapLayer:lta "loput"?

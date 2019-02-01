@@ -6,9 +6,10 @@ import React, { Fragment } from 'react'
 import { LeafletProvider } from './context'
 import MapComponent from './MapComponent'
 import type { LeafletContext, MapLayerProps } from './types'
+import { connect } from 'react-redux'
 
 //MapLayer wraps the leaflet Layer, which is parent to EsriFeatureLayer / L.esri.FeatureLayer
-export default class MapLayer<
+class MapLayer<
   LeafletElement: Layer,
   Props: MapLayerProps,
 > extends MapComponent<LeafletElement, Props> {
@@ -30,8 +31,9 @@ export default class MapLayer<
   updateLeafletElement(_fromProps: Props, _toProps: Props) {}
 
   componentDidMount() {
-    //console.log('MapLayer: componentDidMount', this)
+    //why call parents mount?
     super.componentDidMount()
+    //this.leafletElement holds the GTK featureLayer with set options
     this.layerContainer.addLayer(this.leafletElement)
   }
 
@@ -53,9 +55,8 @@ export default class MapLayer<
     super.componentWillUnmount()
     this.layerContainer.removeLayer(this.leafletElement)
   }
-
+  //Runs on loading app/map. interaction not necessary
   render() {
-    console.log('MapLayer: render')
     const { children } = this.props
     if (children == null) {
       return null
@@ -67,3 +68,4 @@ export default class MapLayer<
     )
   }
 }
+export default MapLayer;

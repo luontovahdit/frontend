@@ -59,6 +59,7 @@ export class ControlledLayer extends Component<ControlledLayerProps> {
   }
 
   removeLayer(layer: Layer) {
+    //TODO tähän voisi myös tehdä hideLayer, jolloin voitaisiin ehkä välttyä turhilta API-kutsuilta
     this.props.removeLayer(layer)
   }
 
